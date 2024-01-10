@@ -4,10 +4,10 @@ P7 JS 2.0 Les petits plats
 
 ## TODO
 
-- [ ] HTML / CSS
-- [ ] Card template
+- [x] HTML / CSS
+- [x] Card template
 - [ ] Search bar
 - [ ] Search algo
-- [ ] Fetch data and try catch
+- [x] Fetch data and try catch
 - [ ] Customs selects
 - [ ] Login system
