@@ -29,7 +29,7 @@ export const cardTemplate = ({
   card.id = id;
 
   const img = document.createElement("img");
-  img.src = `../../assets/images/${image}`;
+  img.src = `assets/images/${image}`;
   img.classList.add("card-img-top");
   img.alt = `exemple de ${name}`;
 
