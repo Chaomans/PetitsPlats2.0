@@ -173,3 +173,54 @@ main {
   margin: 30px calc((100% - 100px) / 2);
   width: 100px;
 }
+
+.tags {
+  display: flex;
+  margin: 30px 0;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.tag {
+  display: flex;
+  background-color: var(--yellow);
+  padding: 5px 15px;
+  height: 50px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.tag p {
+  font-family: var(--manrope);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19.12px;
+  margin: 0;
+}
+.tag button {
+  width: 20px;
+  height: 20px;
+  background: center / cover no-repeat url("../assets/close.svg");
+  outline: none;
+  border: none;
+}
+
+.tag button:hover {
+  background: center / cover no-repeat url("../assets/close_hover.svg");
+}
+
+.search {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.search .recipes_count {
+  font-family: var(--anton);
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 31.61px;
+}

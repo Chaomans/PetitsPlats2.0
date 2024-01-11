@@ -1,6 +1,7 @@
 import { cardTemplate } from "./templates/card.js";
 import { getAllRecipes, storeSearchedRecipes } from "./utils/recipes.js";
 import { search } from "./search.js";
+import { tagTemplate, addTag, resetTags } from "./templates/tag.js";
 
 /**
  * @typedef {{
@@ -33,6 +34,7 @@ const displayRecipes = (recipes, refresh = false) => {
 };
 
 const init = async () => {
+  resetTags();
   const recipes = await getAllRecipes();
   displayRecipes(recipes);
   storeSearchedRecipes(recipes);
@@ -61,6 +63,9 @@ const init = async () => {
       storeSearchedRecipes(recipes);
       displayRecipes(recipes, true);
     }
+    const tag = tagTemplate(searchBarInput.value);
+    addTag(tag);
+    searchBarInput.value = "";
   });
 };
 
