@@ -1,3 +1,5 @@
+import { cleanWords, removeAccents } from "./words.js";
+
 const path = "data/recipes.json";
 
 /**
@@ -18,15 +20,18 @@ const path = "data/recipes.json";
 export const getAllRecipes = async () => {
   try {
     if (localStorage.getItem("recipes") !== null) {
-      return JSON.parse(localStorage.getItem("recipes"));
+      const recipes = JSON.parse(localStorage.getItem("recipes"));
+      wordifyRecipes(recipes);
+      return recipes;
     }
     const res = await fetch(path, { method: "GET" });
     if (!res.ok) {
       throw new Error("Fetch response not OK");
     }
-    const data = await res.json();
-    localStorage.setItem("recipes", JSON.stringify(data));
-    return data;
+    const recipes = await res.json();
+    localStorage.setItem("recipes", JSON.stringify(recipes));
+    wordifyRecipes(recipes);
+    return recipes;
   } catch (error) {
     console.error(error);
     return [];
@@ -73,4 +78,70 @@ export const getOneRecipe = async (id) => {
     console.error(error);
     return [];
   }
+};
+
+/**
+ * @typedef {{
+ *     id: number,
+ *      image: string,
+ *      name : string,
+ *      servings : number,
+ *      ingredients: map<string, string|number>[],
+ *      time: number,
+ *      description: string,
+ *      appliance: string,
+ *      ustensils: string[]
+ *  }} Recipe
+ * @param {Recipe[]} recipes List of recipes
+ */
+export const storeSearchedRecipes = (recipes) => {
+  localStorage.setItem("searched", JSON.stringify(recipes));
+  document.querySelector(".count").innerHTML = recipes.length;
+};
+
+/**
+ * @typedef {{
+ *     id: number,
+ *      image: string,
+ *      name : string,
+ *      servings : number,
+ *      ingredients: map<string, string|number>[],
+ *      time: number,
+ *      description: string,
+ *      appliance: string,
+ *      ustensils: string[]
+ *  }} Recipe
+ * @param {Recipe[]} recipes All recipes from data
+ */
+const wordifyRecipes = (recipes) => {
+  const words = {};
+  recipes.map((recipe) => {
+    wordify(words, recipe.name, "title", recipe.id);
+    wordify(words, recipe.ustensils.join(" "), "ustensils", recipe.id);
+    const allIngredients = recipe.ingredients.map(
+      (ingredient) => ingredient.ingredient
+    );
+    wordify(words, allIngredients.join(" "), "ingredients", recipe.id);
+  });
+  localStorage.setItem("words", JSON.stringify(words));
+};
+
+/**
+ *
+ * @param {Map<string, Map<string, number[]>>} words store
+ * @param {string} str word(s) to store
+ * @param {'title'|'ustensils'|'ingredients'} origin word origin
+ * @param {number} id recipe id
+ */
+const wordify = (words, str, origin, id) => {
+  const list = cleanWords(str).split(" ");
+  list.map((word) => {
+    if (word.length < 3) {
+      return;
+    }
+    if (!words.hasOwnProperty(word.toLowerCase())) {
+      words[word.toLowerCase()] = { title: [], ustensils: [], ingredients: [] };
+    }
+    words[word.toLowerCase()][origin].push(id);
+  });
 };
