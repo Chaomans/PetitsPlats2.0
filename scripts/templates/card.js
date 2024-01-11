@@ -25,12 +25,12 @@ export const cardTemplate = ({
   description,
 }) => {
   const card = document.createElement("div");
-  card.classList.add("card");
+  card.classList.add("card", "rounded-4");
   card.id = id;
 
   const img = document.createElement("img");
   img.src = `assets/images/${image}`;
-  img.classList.add("card-img-top");
+  img.classList.add("card-img-top", "rounded-top-4");
   img.alt = `exemple de ${name}`;
 
   const recipeTime = document.createElement("p");
