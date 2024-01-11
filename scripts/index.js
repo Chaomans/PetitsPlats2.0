@@ -46,7 +46,8 @@ const init = async () => {
   searchBarInput.addEventListener("change", () => {
     if (searchBarInput.value.length > 2) {
       const recipesIDs = search(searchBarInput.value.toLowerCase());
-      const searched = JSON.parse(localStorage.getItem("searched"));
+      // const searched = JSON.parse(localStorage.getItem("searched"));
+      const searched = JSON.parse(localStorage.getItem("recipes"));
       const recipes = searched.filter((recipe) =>
         recipesIDs.includes(recipe.id)
       );
