@@ -117,6 +117,7 @@ const wordifyRecipes = (recipes) => {
   const words = {};
   recipes.map((recipe) => {
     wordify(words, recipe.name, "title", recipe.id);
+    wordify(words, recipe.description, "description", recipe.id);
     wordify(words, recipe.ustensils.join(" "), "ustensils", recipe.id);
     const allIngredients = recipe.ingredients.map(
       (ingredient) => ingredient.ingredient
@@ -130,7 +131,7 @@ const wordifyRecipes = (recipes) => {
  *
  * @param {Map<string, Map<string, number[]>>} words store
  * @param {string} str word(s) to store
- * @param {'title'|'ustensils'|'ingredients'} origin word origin
+ * @param {'title'|'ustensils'|'ingredients'|'description'} origin word origin
  * @param {number} id recipe id
  */
 const wordify = (words, str, origin, id) => {
@@ -140,7 +141,12 @@ const wordify = (words, str, origin, id) => {
       return;
     }
     if (!words.hasOwnProperty(word.toLowerCase())) {
-      words[word.toLowerCase()] = { title: [], ustensils: [], ingredients: [] };
+      words[word.toLowerCase()] = {
+        title: [],
+        ustensils: [],
+        ingredients: [],
+        description: [],
+      };
     }
     words[word.toLowerCase()][origin].push(id);
   });

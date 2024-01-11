@@ -25,7 +25,7 @@ const searchCategory = (words, keys, category) => {
 
 const searchAll = (words, keys) => {
   const indices = new Set();
-  const categories = ["title", "ingredients", "ustensils"];
+  const categories = ["title", "ingredients", "ustensils", "description"];
   categories.map((category) => {
     searchCategory(words, keys, category).forEach((val) => indices.add(val));
   });
