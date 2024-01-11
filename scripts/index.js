@@ -18,11 +18,14 @@ import { search } from "./search.js";
  */
 const displayRecipes = (recipes, refresh = false) => {
   const cards = document.querySelector(".cards");
-  const start = +document.querySelector(".more").getAttribute("data-start");
-  const limit = +document.querySelector(".more").getAttribute("data-limit");
+  const btn = document.querySelector(".more");
   if (refresh) {
     cards.innerHTML = "";
+    btn.setAttribute("data-start", 0);
+    btn.setAttribute("data-limit", 10);
   }
+  const start = btn.getAttribute("data-start");
+  const limit = btn.getAttribute("data-limit");
   recipes.slice(start, limit).map((recipe) => {
     const card = cardTemplate(recipe);
     cards.appendChild(card);
