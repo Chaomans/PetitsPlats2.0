@@ -4,11 +4,16 @@
 :root {
   --yellow: #ffd15b;
   --grey: #7a7a7a;
+  --light-grey: #c6c6c6;
   --black: #1b1b1b;
   --anton: "Anton", "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
     sans-serif;
   --manrope: "Manrope", "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
     sans-serif;
+}
+
+body {
+  background-color: #ededed;
 }
 
 header {
@@ -211,10 +216,10 @@ main {
 }
 
 .search {
-  height: 50px;
+  min-height: 50px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-top: 30px;
 }
 
@@ -231,4 +236,101 @@ main {
 
 main {
   padding-bottom: 30px;
+}
+
+.filter {
+  background-color: #fff;
+  width: 195px;
+  height: 56px;
+  overflow: hidden;
+}
+
+.filter.expand {
+  height: fit-content;
+  max-height: 315px;
+}
+
+.filter .head {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.filter .arrow {
+  background: center / cover no-repeat url("../assets/filter_arrow_down.svg");
+  height: 6px;
+  width: 13px;
+}
+
+.filter.expand .arrow {
+  background: center / cover no-repeat url("../assets/filter_arrow_up.svg");
+}
+
+.filter .title {
+  font-family: var(--manrope);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 21.86px;
+  margin: 0;
+}
+
+.filter-body form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 32px);
+  height: 36px;
+  border: 1px solid var(--light-grey);
+  border-radius: 2px;
+  padding: 3.5px;
+  margin: 0 16px 16px;
+}
+
+.filter-body form input {
+  width: calc(100% - 20px);
+  outline: none;
+  border: none;
+  font-family: var(--manrope);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19.12px;
+  color: var(--grey);
+  caret-color: var(--grey);
+}
+
+.filter-body form button {
+  border: none;
+  outline: none;
+  background: center / cover no-repeat url("../assets/filter_search_btn.svg");
+  width: 15px;
+  height: 15px;
+}
+
+.filter-list {
+  overflow: scroll;
+}
+
+.filter-list::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-list .item {
+  height: 40px;
+  margin: 0;
+  line-height: 40px;
+  padding: 0 16px;
+}
+
+.filter-list .item:hover {
+  background-color: var(--yellow);
+  cursor: pointer;
+}
+
+.search_filters {
+  display: flex;
+  justify-content: space-between;
+  width: clamp(calc(195px * 3 + 10px), 80%, 700px);
 }

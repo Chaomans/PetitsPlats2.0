@@ -2,7 +2,7 @@ import { cardTemplate } from "./templates/card.js";
 import { getAllRecipes, storeSearchedRecipes } from "./utils/recipes.js";
 import { searchOnTags } from "./search.js";
 import { tagTemplate, addTag, resetTags } from "./templates/tag.js";
-
+import { filterTemplate } from "./templates/filter.js";
 /**
  * @typedef {{
  *     id: number,
@@ -45,6 +45,11 @@ const init = async () => {
   const recipes = await getAllRecipes();
   displayRecipes(recipes);
   storeSearchedRecipes(recipes);
+
+  const filters = document.querySelector(".search_filters");
+  filters.appendChild(filterTemplate("Ingrédients", "ingredients"));
+  filters.appendChild(filterTemplate("Appareils", "appliances"));
+  filters.appendChild(filterTemplate("Ustensils", "ustensils"));
 
   const btnDisplayMore = document.querySelector(".more");
   btnDisplayMore.addEventListener("click", () => {
