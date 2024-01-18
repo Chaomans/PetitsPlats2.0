@@ -60,6 +60,18 @@ const intersection = (arrays) => {
 
 /**
  *
+ * @param {Array.<string[]>} tags List of tags with corresponding category
+ * @returns {number[]} Recipes Ids
+ */
+export const searchOnTags = (tags) => {
+  const idsPerTags = tags.map((tag) =>
+    tag[1] === "all" ? search(tag[0]) : search(tag[0], [tag[1]])
+  );
+  return intersection(idsPerTags);
+};
+
+/**
+ *
  * @param {string[]} words user input
  * @param {string} key word from recipe
  * @returns {boolean} True if word matches a key

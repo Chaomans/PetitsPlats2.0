@@ -76,7 +76,7 @@ header .searchbar .search-btn {
   transition: background 0.1s;
 }
 
-header .searchbar .search-btn:active {
+header .searchbar .search-btn:hover {
   background: center / cover no-repeat url("../assets/search-btn-clicked.png");
 }
 
@@ -223,4 +223,12 @@ main {
   font-weight: 400;
   font-size: 21px;
   line-height: 31.61px;
+}
+
+.hidden {
+  display: none;
+}
+
+main {
+  padding-bottom: 30px;
 }

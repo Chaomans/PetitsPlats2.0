@@ -149,7 +149,10 @@ const wordify = (words, str, origin, id) => {
         description: [],
       };
     }
-    words[word.toLowerCase()][origin].push(id);
+    // words[word.toLowerCase()][origin].push(id);
+    words[word.toLowerCase()][origin] = Array.from(
+      new Set([id, ...words[word.toLowerCase()][origin]])
+    );
   });
 };
 

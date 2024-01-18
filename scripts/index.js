@@ -1,6 +1,6 @@
 import { cardTemplate } from "./templates/card.js";
 import { getAllRecipes, storeSearchedRecipes } from "./utils/recipes.js";
-import { search } from "./search.js";
+import { searchOnTags } from "./search.js";
 import { tagTemplate, addTag, resetTags } from "./templates/tag.js";
 
 /**
@@ -17,7 +17,7 @@ import { tagTemplate, addTag, resetTags } from "./templates/tag.js";
  *  }} Recipe
  * @param {Recipe[]} recipes
  */
-const displayRecipes = (recipes, refresh = false) => {
+export const displayRecipes = (recipes, refresh = false) => {
   const cards = document.querySelector(".cards");
   const btn = document.querySelector(".more");
   if (refresh) {
@@ -31,6 +31,13 @@ const displayRecipes = (recipes, refresh = false) => {
     const card = cardTemplate(recipe);
     cards.appendChild(card);
   });
+  document.querySelector(".count").innerHTML = recipes.length;
+  const btnDisplayMore = document.querySelector(".more");
+  if (recipes.length <= 10 || limit >= recipes.length) {
+    btnDisplayMore.classList.add("hidden");
+  } else {
+    btnDisplayMore.classList.remove("hidden");
+  }
 };
 
 const init = async () => {
@@ -52,17 +59,24 @@ const init = async () => {
   searchBarInput.addEventListener("keyup", () => {
     clearTimeout(stopWritingTimeout);
     stopWritingTimeout = setTimeout(() => {
-      if (searchBarInput.value.length > 2) {
-        const recipesIDs = search(searchBarInput.value.toLowerCase());
-        const searched = JSON.parse(sessionStorage.getItem("searched"));
-        const recipes = searched.filter((recipe) =>
-          recipesIDs.includes(recipe.id)
-        );
+      const tags = JSON.parse(sessionStorage.getItem("tags")) ?? [];
+      if (searchBarInput.value.length < 3 && !tags.length) {
         displayRecipes(recipes, true);
-      } else {
-        const recipes = JSON.parse(sessionStorage.getItem("searched"));
-        displayRecipes(recipes, true);
+        storeSearchedRecipes(recipes);
+        return;
       }
+      const recipesIDs =
+        searchBarInput.value.length < 3
+          ? searchOnTags(tags)
+          : searchOnTags([
+              [searchBarInput.value.toLowerCase(), "all"],
+              ...tags,
+            ]);
+      const searched = JSON.parse(sessionStorage.getItem("searched"));
+      const _recipes = searched.filter((recipe) =>
+        recipesIDs.includes(recipe.id)
+      );
+      displayRecipes(_recipes, true);
     }, 300);
   });
 
@@ -73,12 +87,16 @@ const init = async () => {
   const form = document.querySelector("form");
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const tag = tagTemplate(searchBarInput.value);
+    if (searchBarInput.value.length < 3) {
+      return;
+    }
+    const tag = tagTemplate(searchBarInput.value, "all");
     addTag(tag);
     const tags = JSON.parse(sessionStorage.getItem("tags"));
-    const recipesIDs = search(
-      [searchBarInput.value.toLowerCase(), ...tags].join(" ")
-    );
+    const recipesIDs = searchOnTags([
+      [searchBarInput.value.toLowerCase(), "all"],
+      ...tags,
+    ]);
     const searched = JSON.parse(sessionStorage.getItem("searched"));
     const recipes = searched.filter((recipe) => recipesIDs.includes(recipe.id));
     storeSearchedRecipes(recipes);
