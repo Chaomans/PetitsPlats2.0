@@ -39,37 +39,50 @@ const init = async () => {
   displayRecipes(recipes);
   storeSearchedRecipes(recipes);
 
-  const form = document.querySelector("form");
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-  });
-
   const btnDisplayMore = document.querySelector(".more");
   btnDisplayMore.addEventListener("click", () => {
     const limit = +document.querySelector(".more").getAttribute("data-limit");
     btnDisplayMore.setAttribute("data-start", `${limit}`);
     btnDisplayMore.setAttribute("data-limit", `${limit + 10}`);
-    displayRecipes(JSON.parse(localStorage.getItem("searched")));
+    displayRecipes(JSON.parse(sessionStorage.getItem("searched")));
   });
 
+  let stopWritingTimeout;
   const searchBarInput = document.querySelector(".searchbar-input");
-  searchBarInput.addEventListener("change", () => {
-    if (searchBarInput.value.length > 2) {
-      const recipesIDs = search(searchBarInput.value.toLowerCase());
-      // const searched = JSON.parse(localStorage.getItem("searched"));
-      const searched = JSON.parse(localStorage.getItem("recipes"));
-      const recipes = searched.filter((recipe) =>
-        recipesIDs.includes(recipe.id)
-      );
-      storeSearchedRecipes(recipes);
-      displayRecipes(recipes, true);
-    } else {
-      const recipes = JSON.parse(localStorage.getItem("recipes"));
-      storeSearchedRecipes(recipes);
-      displayRecipes(recipes, true);
-    }
+  searchBarInput.addEventListener("keyup", () => {
+    clearTimeout(stopWritingTimeout);
+    stopWritingTimeout = setTimeout(() => {
+      if (searchBarInput.value.length > 2) {
+        const recipesIDs = search(searchBarInput.value.toLowerCase());
+        const searched = JSON.parse(sessionStorage.getItem("searched"));
+        const recipes = searched.filter((recipe) =>
+          recipesIDs.includes(recipe.id)
+        );
+        displayRecipes(recipes, true);
+      } else {
+        const recipes = JSON.parse(sessionStorage.getItem("searched"));
+        displayRecipes(recipes, true);
+      }
+    }, 300);
+  });
+
+  searchBarInput.addEventListener("keydown", () =>
+    clearTimeout(stopWritingTimeout)
+  );
+
+  const form = document.querySelector("form");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
     const tag = tagTemplate(searchBarInput.value);
     addTag(tag);
+    const tags = JSON.parse(sessionStorage.getItem("tags"));
+    const recipesIDs = search(
+      [searchBarInput.value.toLowerCase(), ...tags].join(" ")
+    );
+    const searched = JSON.parse(sessionStorage.getItem("searched"));
+    const recipes = searched.filter((recipe) => recipesIDs.includes(recipe.id));
+    storeSearchedRecipes(recipes);
+    displayRecipes(recipes, true);
     searchBarInput.value = "";
   });
 };

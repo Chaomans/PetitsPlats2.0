@@ -28,14 +28,14 @@ export const tagTemplate = (tagname) => {
  */
 export const addTag = (tag) => {
   const tagname = tag.querySelector("p").innerHTML;
-  if (!localStorage.getItem("tags")) {
-    localStorage.setItem("tags", JSON.stringify([tagname]));
+  if (!sessionStorage.getItem("tags")) {
+    sessionStorage.setItem("tags", JSON.stringify([tagname]));
     displayTag(tag);
     return;
   }
-  const tags = new Set(JSON.parse(localStorage.getItem("tags")));
+  const tags = new Set(JSON.parse(sessionStorage.getItem("tags")));
   tags.add(tagname);
-  localStorage.setItem("tags", JSON.stringify(Array.from(tags)));
+  sessionStorage.setItem("tags", JSON.stringify(Array.from(tags)));
   displayTag(tag);
 };
 
@@ -49,14 +49,14 @@ const displayTag = (tag) => {
  * @param {*} tagname Tag name
  */
 export const removeTag = (tagname) => {
-  if (!localStorage.getItem("tags")) {
+  if (!sessionStorage.getItem("tags")) {
     return;
   }
-  const tags = new Set(JSON.parse(localStorage.getItem("tags")));
+  const tags = new Set(JSON.parse(sessionStorage.getItem("tags")));
   tags.delete(tagname);
-  localStorage.setItem("tags", JSON.stringify(Array.from(tags)));
+  sessionStorage.setItem("tags", JSON.stringify(Array.from(tags)));
 };
 
 export const resetTags = () => {
-  localStorage.removeItem("tags");
+  sessionStorage.removeItem("tags");
 };

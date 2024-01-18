@@ -10,7 +10,8 @@ export const cleanWords = (words) => {
   return words
     .replace(/[^\w\sàâäãéèêëìîïôöòóç]/g, " ")
     .replace(/\s+/g, " ")
-    .trim();
+    .trim()
+    .toLowerCase();
 };
 
 /**

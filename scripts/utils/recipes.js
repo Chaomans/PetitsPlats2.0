@@ -19,8 +19,8 @@ const path = "data/recipes.json";
 
 export const getAllRecipes = async () => {
   try {
-    if (localStorage.getItem("recipes") !== null) {
-      const recipes = JSON.parse(localStorage.getItem("recipes"));
+    if (sessionStorage.getItem("recipes") !== null) {
+      const recipes = JSON.parse(sessionStorage.getItem("recipes"));
       wordifyRecipes(recipes);
       return recipes;
     }
@@ -29,7 +29,7 @@ export const getAllRecipes = async () => {
       throw new Error("Fetch response not OK");
     }
     const recipes = await res.json();
-    localStorage.setItem("recipes", JSON.stringify(recipes));
+    sessionStorage.setItem("recipes", JSON.stringify(recipes));
     wordifyRecipes(recipes);
     return recipes;
   } catch (error) {
@@ -55,8 +55,8 @@ export const getAllRecipes = async () => {
  */
 export const getOneRecipe = async (id) => {
   try {
-    if (localStorage.getItem("recipes") !== null) {
-      const recipes = JSON.parse(localStorage.getItem("recipes"));
+    if (sessionStorage.getItem("recipes") !== null) {
+      const recipes = JSON.parse(sessionStorage.getItem("recipes"));
       const recipe = recipes.filter((recipe) => recipe.id === id)[0];
       if (!recipe.hasOwnProperty("id")) {
         throw new Error(`Recipe with id ${id} does not exist`);
@@ -68,7 +68,7 @@ export const getOneRecipe = async (id) => {
       throw new Error("Fetch response not OK");
     }
     const data = await res.json();
-    localStorage.setItem("recipes", JSON.stringify(data));
+    sessionStorage.setItem("recipes", JSON.stringify(data));
     const recipe = data.filter((recipe) => recipe.id === id)[0];
     if (!recipe.hasOwnProperty("id")) {
       throw new Error(`Recipe with id ${id} does not exist`);
@@ -95,7 +95,7 @@ export const getOneRecipe = async (id) => {
  * @param {Recipe[]} recipes List of recipes
  */
 export const storeSearchedRecipes = (recipes) => {
-  localStorage.setItem("searched", JSON.stringify(recipes));
+  sessionStorage.setItem("searched", JSON.stringify(recipes));
   document.querySelector(".count").innerHTML = recipes.length;
 };
 
@@ -124,7 +124,8 @@ const wordifyRecipes = (recipes) => {
     );
     wordify(words, allIngredients.join(" "), "ingredients", recipe.id);
   });
-  localStorage.setItem("words", JSON.stringify(words));
+  sessionStorage.setItem("words", JSON.stringify(words));
+  setAdvancedFieldsLists(recipes);
 };
 
 /**
@@ -150,4 +151,107 @@ const wordify = (words, str, origin, id) => {
     }
     words[word.toLowerCase()][origin].push(id);
   });
+};
+
+/**
+ * @typedef {{
+ *     id: number,
+ *      image: string,
+ *      name : string,
+ *      servings : number,
+ *      ingredients: map<string, string|number>[],
+ *      time: number,
+ *      description: string,
+ *      appliance: string,
+ *      ustensils: string[]
+ *  }} Recipe
+ * @param {Recipe[]} recipes All recipes from data
+ */
+const setAdvancedFieldsLists = (recipes) => {
+  setIngredients(recipes);
+  setUstensils(recipes);
+  setAppliances(recipes);
+};
+
+/**
+ * @typedef {{
+ *     id: number,
+ *      image: string,
+ *      name : string,
+ *      servings : number,
+ *      ingredients: map<string, string|number>[],
+ *      time: number,
+ *      description: string,
+ *      appliance: string,
+ *      ustensils: string[]
+ *  }} Recipe
+ * @param {Recipe[]} recipes All recipes from data
+ */
+const setIngredients = (recipes) => {
+  sessionStorage.setItem(
+    "ingredients",
+    JSON.stringify([
+      ...new Set(
+        recipes
+          .map((recipe) =>
+            recipe.ingredients.map((ingredient) =>
+              cleanWords(ingredient.ingredient)
+            )
+          )
+          .flat()
+      ),
+    ])
+  );
+};
+
+/**
+ * @typedef {{
+ *     id: number,
+ *      image: string,
+ *      name : string,
+ *      servings : number,
+ *      ingredients: map<string, string|number>[],
+ *      time: number,
+ *      description: string,
+ *      appliance: string,
+ *      ustensils: string[]
+ *  }} Recipe
+ * @param {Recipe[]} recipes All recipes from data
+ */
+const setUstensils = (recipes) => {
+  sessionStorage.setItem(
+    "ustensils",
+    JSON.stringify([
+      ...new Set(
+        recipes
+          .map((recipe) =>
+            recipe.ustensils.map((ustensil) => cleanWords(ustensil))
+          )
+          .flat()
+      ),
+    ])
+  );
+};
+
+/**
+ * @typedef {{
+ *     id: number,
+ *      image: string,
+ *      name : string,
+ *      servings : number,
+ *      ingredients: map<string, string|number>[],
+ *      time: number,
+ *      description: string,
+ *      appliance: string,
+ *      ustensils: string[]
+ *  }} Recipe
+ * @param {Recipe[]} recipes All recipes from data
+ */
+const setAppliances = (recipes) => {
+  sessionStorage.setItem(
+    "appliances",
+    JSON.stringify([
+      ...new Set(recipes.map((recipe) => cleanWords(recipe.appliance)).flat()),
+    ])
+  );
 };
