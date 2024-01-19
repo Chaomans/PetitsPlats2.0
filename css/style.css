@@ -311,7 +311,8 @@ main {
 
 .filter-list {
   max-height: 225px;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .filter-list::-webkit-scrollbar {
