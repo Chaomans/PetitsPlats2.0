@@ -72,11 +72,12 @@ const addEvents = (filter, category) => {
     selected.value = "";
   });
 
-  let stopWritingTimeout;
+  let timeout;
   form.querySelector("input").addEventListener("keyup", (e) => {
-    clearTimeout(stopWritingTimeout);
-    stopWritingTimeout = setTimeout(() => {
-      const items = filter.querySelectorAll(".items");
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      const items = filter.querySelectorAll(".item");
+      console.log("stop writing");
       if (e.target.value.length < 3) {
         items.forEach((item) => item.classList.remove("hidden"));
       }
@@ -88,8 +89,8 @@ const addEvents = (filter, category) => {
     }, 300);
   });
 
-  form.querySelector("input").addEventListener("keyup", (e) => {
-    clearTimeout(stopWritingTimeout);
+  form.querySelector("input").addEventListener("keydown", (e) => {
+    clearTimeout(timeout);
   });
 
   const items = filter.querySelectorAll(".item");
@@ -98,6 +99,7 @@ const addEvents = (filter, category) => {
       addTagFromFilter(item.innerHTML, category);
       filter.classList.toggle("expand");
       filter.querySelector(".filter-body").classList.toggle("hidden");
+      form.querySelector("input").value = "";
     });
   });
 };
