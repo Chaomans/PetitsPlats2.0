@@ -1,4 +1,4 @@
-import { cleanWords, removeAccents } from "./words.js";
+import { cleanWords, removePlurals } from "./words.js";
 
 const path = "data/recipes.json";
 
@@ -119,6 +119,7 @@ const wordifyRecipes = (recipes) => {
     wordify(words, recipe.name, "title", recipe.id);
     wordify(words, recipe.description, "description", recipe.id);
     wordify(words, recipe.ustensils.join(" "), "ustensils", recipe.id);
+    wordify(words, recipe.appliance, "appliances", recipe.id);
     const allIngredients = recipe.ingredients.map(
       (ingredient) => ingredient.ingredient
     );
@@ -147,6 +148,7 @@ const wordify = (words, str, origin, id) => {
         ustensils: [],
         ingredients: [],
         description: [],
+        appliances: [],
       };
     }
     // words[word.toLowerCase()][origin].push(id);
@@ -193,17 +195,19 @@ const setAdvancedFieldsLists = (recipes) => {
 const setIngredients = (recipes) => {
   sessionStorage.setItem(
     "ingredients",
-    JSON.stringify([
-      ...new Set(
-        recipes
-          .map((recipe) =>
-            recipe.ingredients.map((ingredient) =>
-              cleanWords(ingredient.ingredient)
+    JSON.stringify(
+      removePlurals([
+        ...new Set(
+          recipes
+            .map((recipe) =>
+              recipe.ingredients.map((ingredient) =>
+                cleanWords(ingredient.ingredient)
+              )
             )
-          )
-          .flat()
-      ),
-    ])
+            .flat()
+        ),
+      ])
+    )
   );
 };
 

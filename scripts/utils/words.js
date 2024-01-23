@@ -29,3 +29,24 @@ export const removeAccents = (word) => {
     .replace(/[ôöòó]/g, "o")
     .replace(/[ç]/g, "c");
 };
+
+/**
+ *
+ * @param {string[]} ingredients
+ * @returns {string[]}
+ */
+export const removePlurals = (ingredients) => {
+  return ingredients.filter((plural) => {
+    const include = ingredients.filter(
+      (ingredient) =>
+        plural.toLowerCase().includes(ingredient.toLowerCase()) &&
+        plural.localeCompare(ingredient) === 1 &&
+        plural.length - ingredient.length === 1 &&
+        plural.slice(-1) === "s"
+    );
+    if (include.length) {
+      return false;
+    }
+    return true;
+  });
+};

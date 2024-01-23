@@ -6,8 +6,12 @@ P7 JS 2.0 Les petits plats
 
 - [x] HTML / CSS
 - [x] Card template
-- [ ] Search bar
-- [ ] Search algo
+- [x] Filter Template
+- [x] Tag Template
+- [x] Search bar
+- [x] Search algo
 - [x] Fetch data and try catch
-- [ ] Customs selects
-- [ ] Login system
+- [x] Customs selects
+- [x] Filters depends on tags
+- [x] Results depends on tags
+- [x] Search as you tape

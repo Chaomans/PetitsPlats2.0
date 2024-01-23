@@ -230,7 +230,8 @@ main {
   line-height: 31.61px;
 }
 
-.hidden {
+.hidden,
+.item.exclude {
   display: none;
 }
 
