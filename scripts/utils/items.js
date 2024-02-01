@@ -22,7 +22,9 @@ export const updateItemsWithTags = () => {
 const updateItems = (filter, currentRecipes) => {
   const list = getItemsList(currentRecipes, filter.getAttribute("category"));
   const tags = JSON.parse(sessionStorage.getItem("tags"))
-    .filter((item) => item[1] === filter.getAttribute("category"))
+    .filter(
+      (item) => item[1] === filter.getAttribute("category") || item[1] === "all"
+    )
     .map((item) => item[0]);
   filter.querySelectorAll(".item").forEach((item) => {
     if (
@@ -59,7 +61,7 @@ const getItemsList = (recipes, category) => {
     case "appliances":
       return [...new Set(recipes.map((recipe) => recipe.appliance))];
     case "ustensils":
-      return [...new Set(recipes.map((recipe) => recipe.appliance).flat())];
+      return [...new Set(recipes.map((recipe) => recipe.ustensils).flat())];
     case "ingredients":
       return [
         ...new Set(

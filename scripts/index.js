@@ -59,9 +59,6 @@ const addEvents = (filter, category) => {
   const form = filter.querySelector("form");
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const selected = form.querySelector("input");
-    addTagFromFilter(selected.value, category);
-    selected.value = "";
   });
 
   form.querySelector("input").addEventListener("keyup", (e) => {
@@ -148,7 +145,6 @@ export const addTag = (tag) => {
   const category = tag.getAttribute("data-category");
   if (!sessionStorage.getItem("tags")) {
     sessionStorage.setItem("tags", JSON.stringify([[tagname, category]]));
-    updateItemsWithTags();
     displayTag(tag);
     return;
   }
@@ -185,6 +181,7 @@ export const removeTag = (tagname) => {
   if (!tags.length) {
     const recipes = JSON.parse(sessionStorage.getItem("recipes"));
     storeSearchedRecipes(recipes);
+    updateItemsWithTags();
     displayRecipes(recipes, true);
     return;
   }
@@ -275,6 +272,7 @@ const init = async () => {
         recipesIDs.includes(recipe.id)
       );
       storeSearchedRecipes(recipes);
+      updateItemsWithTags();
       displayRecipes(recipes, true);
     }
     searchBarInput.value = "";
