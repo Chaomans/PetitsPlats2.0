@@ -47,7 +47,7 @@ const searchCategory = (words, key, category) => {
 const intersection = (arrays) => {
   let inter = [];
   const values = Object.values(arrays);
-  values.map((val, i) => {
+  values.forEach((val, i) => {
     if (i === 0) {
       inter.push(...val);
     }
