@@ -21,23 +21,10 @@ header {
   width: 100%;
   background: center / cover no-repeat url("../assets/header.jpg");
   text-align: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   position: relative;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
 }
 
@@ -70,21 +57,11 @@ header .searchbar {
   width: clamp(360px, 60%, 950px);
   height: 72px;
   padding: 10px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between;
 }
 header .searchbar input {
-  width: -webkit-calc(100% - 52px);
   width: calc(100% - 52px);
   border: none;
   height: 100%;
@@ -95,24 +72,7 @@ header .searchbar input {
   font-weight: 400;
 }
 
-header .searchbar input::-webkit-input-placeholder-shown {
-  text-overflow: ellipsis;
-}
-
-header .searchbar input::-moz-placeholder-shown {
-  text-overflow: ellipsis;
-}
-
-header .searchbar input:-ms-input-placeholder-shown {
-  text-overflow: ellipsis;
-}
-
-header .searchbar input::-ms-input-placeholder-shown {
-  text-overflow: ellipsis;
-}
-
 header .searchbar input::placeholder-shown {
-  -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
 
@@ -133,12 +93,8 @@ main {
 }
 
 .cards {
-  display: -ms-grid;
   display: grid;
   grid-template-columns: repeat(auto-fill, 380px);
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between;
   row-gap: 30px;
 }
@@ -146,7 +102,6 @@ main {
 .card {
   height: 730px;
   width: 380px;
-  -webkit-box-shadow: 0 4px 34px 30px #0000000a;
   box-shadow: 0 4px 34px 30px #0000000a;
 }
 
@@ -157,7 +112,6 @@ main {
 
 .card-img-top {
   height: 250px;
-  -o-object-fit: cover;
   object-fit: cover;
 }
 
@@ -224,38 +178,23 @@ main {
 }
 
 .more {
-  margin: 30px -webkit-calc((100% - 100px) / 2);
   margin: 30px calc((100% - 100px) / 2);
   width: 100px;
 }
 
 .tags {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   margin: 30px 0;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   gap: 30px;
 }
 
 .tag {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   background-color: var(--yellow);
   padding: 5px 15px;
   height: 50px;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
   align-items: center;
   gap: 20px;
 }
@@ -281,17 +220,8 @@ main {
 
 .search {
   min-height: 50px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between;
-  -webkit-box-align: start;
-  -webkit-align-items: flex-start;
-  -ms-flex-align: start;
   align-items: flex-start;
   margin-top: 30px;
 }
@@ -322,30 +252,16 @@ main {
 }
 
 .filter.expand {
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
   height: fit-content;
   max-height: 315px;
 }
 
 .filter .head {
   padding: 16px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
   align-items: center;
   cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 
@@ -368,30 +284,18 @@ main {
 }
 
 .filter-body form {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
   align-items: center;
-  width: -webkit-calc(100% - 32px);
   width: calc(100% - 32px);
   height: 36px;
   border: 1px solid var(--light-grey);
-  -webkit-border-radius: 2px;
   border-radius: 2px;
   padding: 3.5px;
   margin: 0 16px 16px;
 }
 
 .filter-body form input {
-  width: -webkit-calc(100% - 20px);
   width: calc(100% - 20px);
   outline: none;
   border: none;
@@ -422,14 +326,11 @@ main {
   width: 5px;
 }
 .filter-list::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 5px var(--light-grey);
   box-shadow: inset 0 0 5px var(--light-grey);
-  -webkit-border-radius: 5px;
   border-radius: 5px;
 }
 .filter-list::-webkit-scrollbar-thumb {
   background: var(--grey);
-  -webkit-border-radius: 5px;
   border-radius: 5px;
 }
 
@@ -438,7 +339,6 @@ main {
   margin: 0;
   line-height: 40px;
   padding: 0 16px;
-  -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -451,15 +351,8 @@ main {
 }
 
 .search_filters {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between;
-  width: clamp(-webkit-calc(195px * 3 + 10px), 80%, 700px);
   width: clamp(calc(195px * 3 + 10px), 80%, 700px);
 }
 
@@ -478,20 +371,12 @@ main {
     height: 25.26px;
   }
   .search {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: reverse;
-    -webkit-flex-direction: column-reverse;
-    -ms-flex-direction: column-reverse;
     flex-direction: column-reverse;
     gap: 15px;
   }
   .search_filters {
     width: 100%;
     gap: 5px;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: row;
-    -ms-flex-direction: row;
     flex-direction: row;
   }
   .filter {
@@ -499,9 +384,6 @@ main {
   }
   .cards {
     grid-template-columns: repeat(auto-fill, 380px);
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
     justify-content: center;
   }
   .card {
@@ -521,14 +403,7 @@ main {
   .search_filters {
     width: 100%;
     gap: 15px;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
     align-items: center;
   }
   .filter {
@@ -541,17 +416,11 @@ main {
     height: 19.52px;
   }
   .cards {
-    -ms-grid-columns: 1fr;
     grid-template-columns: 1fr;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
     justify-content: center;
   }
   .card {
     width: 100%;
-    height: -webkit-fit-content;
-    height: -moz-fit-content;
     height: fit-content;
   }
   .tags {
