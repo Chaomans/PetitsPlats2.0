@@ -51,9 +51,21 @@ export const displayRecipes = (recipes, refresh = false) => {
  */
 const addEvents = (filter, category) => {
   const head = filter.querySelector(".head");
+  filter.addEventListener("keyup", (e) => {
+    if (
+      document.activeElement.getAttribute("category") ===
+        filter.getAttribute("category") &&
+      e.key === "Enter"
+    ) {
+      head.click();
+    }
+  });
   head.addEventListener("click", () => {
     filter.classList.toggle("expand");
     filter.querySelector(".filter-body").classList.toggle("hidden");
+    if (filter.classList.contains("expand")) {
+      filter.querySelector("input").focus();
+    }
   });
 
   const form = filter.querySelector("form");
@@ -88,6 +100,12 @@ const addEvents = (filter, category) => {
       filter.classList.toggle("expand");
       filter.querySelector(".filter-body").classList.toggle("hidden");
       form.querySelector("input").value = "";
+    });
+
+    item.addEventListener("keyup", (e) => {
+      if (e.key === "Enter") {
+        item.click();
+      }
     });
   });
 };

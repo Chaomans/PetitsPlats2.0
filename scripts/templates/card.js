@@ -27,6 +27,7 @@ export const cardTemplate = ({
   const card = document.createElement("div");
   card.classList.add("card", "rounded-4");
   card.id = id;
+  card.setAttribute("tabindex", 0);
 
   const img = document.createElement("img");
   img.src = `assets/images/${image}`;

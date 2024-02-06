@@ -8,6 +8,7 @@ export const filterTemplate = (name, category) => {
   const filter = document.createElement("div");
   filter.classList.add("filter", "rounded-4");
   filter.setAttribute("category", category);
+  filter.setAttribute("tabindex", 0);
 
   const head = document.createElement("div");
   head.classList.add("head");
@@ -38,6 +39,7 @@ export const filterTemplate = (name, category) => {
     p.id = i;
     p.classList.add("item");
     p.innerHTML = item;
+    p.setAttribute("tabindex", 0);
     list.appendChild(p);
   });
 

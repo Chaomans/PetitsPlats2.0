@@ -338,7 +338,8 @@ main {
   white-space: nowrap;
 }
 
-.filter-list .item:hover {
+.filter-list .item:hover,
+.filter-list .item:focus {
   background-color: var(--yellow);
   cursor: pointer;
 }
