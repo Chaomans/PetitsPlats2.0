@@ -54,7 +54,7 @@ header a img {
 
 header .searchbar {
   background-color: #fff;
-  width: clamp(450px, 60%, 950px);
+  width: clamp(360px, 60%, 950px);
   height: 72px;
   padding: 10px;
   display: flex;
@@ -70,6 +70,10 @@ header .searchbar input {
   line-height: 21.86px;
   font-size: 16px;
   font-weight: 400;
+}
+
+header .searchbar input::placeholder-shown {
+  text-overflow: ellipsis;
 }
 
 header .searchbar .search-btn {
@@ -226,7 +230,9 @@ main {
   font-family: var(--anton);
   font-weight: 400;
   font-size: 21px;
-  line-height: 31.61px;
+  line-height: 56px;
+  margin: 0;
+  height: 56px;
 }
 
 .hidden,
@@ -348,4 +354,76 @@ main {
   display: flex;
   justify-content: space-between;
   width: clamp(calc(195px * 3 + 10px), 80%, 700px);
+}
+
+@media (max-width: 768px) {
+  header {
+    height: clamp(500px, 100vw, 670px);
+  }
+  header h1 {
+    font-size: 38px;
+    max-width: 890px;
+  }
+  header a {
+    top: 50px;
+    left: 60px;
+    width: 207px;
+    height: 25.26px;
+  }
+  .search {
+    flex-direction: column-reverse;
+    gap: 15px;
+  }
+  .search_filters {
+    width: 100%;
+    gap: 5px;
+    flex-direction: row;
+  }
+  .filter {
+    width: clamp(135px, 33%, 195px);
+  }
+  .cards {
+    grid-template-columns: repeat(auto-fill, 380px);
+    justify-content: center;
+  }
+  .card {
+    width: 380px;
+    height: 730px;
+  }
+  .tags {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 425px) {
+  header h1 {
+    font-size: 33px;
+    max-width: 370px;
+  }
+  .search_filters {
+    width: 100%;
+    gap: 15px;
+    flex-direction: column;
+    align-items: center;
+  }
+  .filter {
+    width: 200px;
+  }
+  header a {
+    top: 30px;
+    left: 30px;
+    width: 160px;
+    height: 19.52px;
+  }
+  .cards {
+    grid-template-columns: 1fr;
+    justify-content: center;
+  }
+  .card {
+    width: 100%;
+    height: fit-content;
+  }
+  .tags {
+    gap: 10px;
+  }
 }

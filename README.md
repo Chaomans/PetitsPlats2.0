@@ -18,3 +18,4 @@ P7 JS 2.0 Les petits plats
 - [x] Benchmark -> branch "benchmark" + result image
 - [ ] Algorigramme
 - [x] Minimum of accessibility
+- [x] Responsive
