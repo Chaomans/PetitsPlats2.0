@@ -47,14 +47,14 @@ const searchCategory = (words, key, category) => {
 const intersection = (arrays) => {
   let inter = [];
   const values = Object.values(arrays);
-  values.forEach((val, i) => {
+  for (let i = 0; i < values.length; i++) {
     if (i === 0) {
       inter.push(...val);
     }
     if (i < values.length - 1) {
       inter = inter.filter((v) => values[i + 1].includes(v));
     }
-  });
+  }
   return inter;
 };
 
