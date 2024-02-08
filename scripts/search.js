@@ -49,7 +49,7 @@ const intersection = (arrays) => {
   const values = Object.values(arrays);
   for (let i = 0; i < values.length; i++) {
     if (i === 0) {
-      inter.push(...val);
+      inter.push(...values[i]);
     }
     if (i < values.length - 1) {
       inter = inter.filter((v) => values[i + 1].includes(v));
